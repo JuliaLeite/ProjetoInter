@@ -1,5 +1,8 @@
-package controller;
-
+package calculos;
+/**
+ *
+ * @author Tarcio
+ */
 public class CalculadorPON {
     private Double distancia;
     private Double potenciaTransmissao;
@@ -11,8 +14,8 @@ public class CalculadorPON {
     private int quantidadePowerSplitters;
 
     public CalculadorPON(Double distancia, Double potenciaTransmissao, Double sensibilidadeRecepcao,
-                         Double atenuacaoFibra, Double perdasConectores, Double perdasPowerSplitters,
-                         int quantidadeConectores, int quantidadePowerSplitters) {
+                          Double atenuacaoFibra, Double perdasConectores, Double perdasPowerSplitters,
+                          int quantidadeConectores, int quantidadePowerSplitters) {
         this.distancia = distancia;
         this.potenciaTransmissao = potenciaTransmissao;
         this.sensibilidadeRecepcao = sensibilidadeRecepcao;
@@ -25,7 +28,6 @@ public class CalculadorPON {
 
     public Double calcularDistanciaMaxima() {
         if (distancia == null) {
-            // Cálculo da distância máxima
             double distanciaMaxima = (potenciaTransmissao - sensibilidadeRecepcao
                     - (quantidadeConectores * perdasConectores)
                     - (quantidadePowerSplitters * perdasPowerSplitters)) / atenuacaoFibra;
@@ -37,7 +39,6 @@ public class CalculadorPON {
 
     public Double calcularPotenciaTransmissao() {
         if (potenciaTransmissao == null) {
-            // Cálculo da potência de transmissão
             double potenciaTransmissao_ = (distancia * atenuacaoFibra) + sensibilidadeRecepcao
                     + (quantidadeConectores * perdasConectores) + (quantidadePowerSplitters * perdasPowerSplitters);
             return potenciaTransmissao_;
@@ -48,7 +49,6 @@ public class CalculadorPON {
 
     public Double calcularSensibilidadeRecepcao() {
         if (sensibilidadeRecepcao == null) {
-            // Cálculo da sensibilidade de recepção
             double sensibilidadeRecepcao_ = potenciaTransmissao - (distancia * atenuacaoFibra)
                     - (quantidadeConectores * perdasConectores) - (quantidadePowerSplitters * perdasPowerSplitters);
             return sensibilidadeRecepcao_;
@@ -59,7 +59,6 @@ public class CalculadorPON {
 
     public Double calcularAtenuacaoFibra() {
         if (atenuacaoFibra == null) {
-            // Cálculo da atenuação da fibra
             double atenuacaoFibra_ = (potenciaTransmissao - sensibilidadeRecepcao
                     - (quantidadeConectores * perdasConectores)
                     - (quantidadePowerSplitters * perdasPowerSplitters)) / distancia;
@@ -71,7 +70,6 @@ public class CalculadorPON {
 
     public Double calcularPerdasConectores() {
         if (perdasConectores == null) {
-            // Calcula perdasConectores com base na fórmula fornecida
             perdasConectores = (potenciaTransmissao - sensibilidadeRecepcao
                     - (quantidadePowerSplitters * perdasPowerSplitters) * atenuacaoFibra) / quantidadeConectores;
             return perdasConectores;
@@ -82,7 +80,6 @@ public class CalculadorPON {
 
     public Double calcularPerdasPowerSplitters() {
         if (perdasPowerSplitters == null) {
-            // Calcula perdasPowerSplitters com base na fórmula fornecida
             perdasPowerSplitters = (potenciaTransmissao - sensibilidadeRecepcao
                     - (quantidadeConectores * perdasConectores) * atenuacaoFibra) / quantidadePowerSplitters;
             return perdasPowerSplitters;
@@ -93,7 +90,6 @@ public class CalculadorPON {
 
     public int calcularQuantidadeConectores() {
         if (quantidadeConectores == 0) {
-            // Calcula quantidadeConectores com base na fórmula fornecida
             quantidadeConectores = (int) Math.ceil((potenciaTransmissao - sensibilidadeRecepcao
                     - (quantidadePowerSplitters * perdasPowerSplitters) * atenuacaoFibra) / perdasConectores);
             return quantidadeConectores;
@@ -104,7 +100,6 @@ public class CalculadorPON {
 
     public int calcularQuantidadePowerSplitters() {
         if (quantidadePowerSplitters == 0) {
-            // Calcula quantidadePowerSplitters com base na fórmula fornecida
             quantidadePowerSplitters = (int) Math.ceil((potenciaTransmissao - sensibilidadeRecepcao
                     - (quantidadeConectores * perdasConectores) * atenuacaoFibra) / perdasPowerSplitters);
             return quantidadePowerSplitters;
