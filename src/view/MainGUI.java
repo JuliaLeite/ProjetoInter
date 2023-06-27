@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainGUI extends JFrame {
+    private JTextField distanciaTextField;
     private JTextField potenciaTransmissaoTextField;
     private JTextField sensibilidadeRecepcaoTextField;
     private JTextField atenuacaoFibraTextField;
@@ -28,7 +29,7 @@ public class MainGUI extends JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Componentes de entrada de dados
+        distanciaTextField = new JTextField(10);
         potenciaTransmissaoTextField = new JTextField(10);
         sensibilidadeRecepcaoTextField = new JTextField(10);
         atenuacaoFibraTextField = new JTextField(10);
@@ -36,6 +37,7 @@ public class MainGUI extends JFrame {
         quantidadeConectoresTextField = new JTextField(10);
         quantidadePowerSplittersTextField = new JTextField(10);
 
+        mainPanel.add(createInputPanel("Distância:", distanciaTextField));
         mainPanel.add(createInputPanel("Potência de transmissão:", potenciaTransmissaoTextField));
         mainPanel.add(createInputPanel("Sensibilidade de recepção:", sensibilidadeRecepcaoTextField));
         mainPanel.add(createInputPanel("Atenuação da fibra:", atenuacaoFibraTextField));
@@ -43,7 +45,6 @@ public class MainGUI extends JFrame {
         mainPanel.add(createInputPanel("Quantidade de conectores:", quantidadeConectoresTextField));
         mainPanel.add(createInputPanel("Quantidade de power splitters:", quantidadePowerSplittersTextField));
 
-        // Botão de cálculo
         JButton calcularButton = new JButton("Calcular");
         calcularButton.addActionListener(new ActionListener() {
             @Override
@@ -55,7 +56,6 @@ public class MainGUI extends JFrame {
         mainPanel.add(calcularButton);
         mainPanel.add(Box.createVerticalStrut(10));
 
-        // Área de resultados
         resultadosTextArea = new JTextArea(10, 30);
         resultadosTextArea.setEditable(false);
         resultadosTextArea.setLineWrap(true);
@@ -76,6 +76,7 @@ public class MainGUI extends JFrame {
 
     private void calcular() {
         try {
+            Double distancia = Double.parseDouble(distanciaTextField.getText());
             Double potenciaTransmissao = Double.parseDouble(potenciaTransmissaoTextField.getText());
             Double sensibilidadeRecepcao = Double.parseDouble(sensibilidadeRecepcaoTextField.getText());
             Double atenuacaoFibra = Double.parseDouble(atenuacaoFibraTextField.getText());
@@ -83,7 +84,7 @@ public class MainGUI extends JFrame {
             int quantidadeConectores = Integer.parseInt(quantidadeConectoresTextField.getText());
             int quantidadePowerSplitters = Integer.parseInt(quantidadePowerSplittersTextField.getText());
 
-            CalculadorPON calculadorPON = new CalculadorPON(null, potenciaTransmissao, sensibilidadeRecepcao,
+            CalculadorPON calculadorPON = new CalculadorPON(distancia, potenciaTransmissao, sensibilidadeRecepcao,
                     atenuacaoFibra, 0.2, perdasPowerSplitters, quantidadeConectores, quantidadePowerSplitters);
 
             Double distanciaMaxima = calculadorPON.calcularDistanciaMaxima();
@@ -96,7 +97,7 @@ public class MainGUI extends JFrame {
             int quantidadePowerSplitters_ = calculadorPON.calcularQuantidadePowerSplitters();
 
             StringBuilder resultados = new StringBuilder();
-            resultados.append("Distância máxima: ").append((distanciaMaxima)).append("\n");
+            resultados.append("Distância máxima: ").append(distanciaMaxima).append("\n");
             resultados.append("Potência de transmissão: ").append(potenciaTransmissao_).append("\n");
             resultados.append("Sensibilidade de recepção: ").append(sensibilidadeRecepcao_).append("\n");
             resultados.append("Atenuação da fibra: ").append(atenuacaoFibra_).append("\n");
