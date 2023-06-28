@@ -1,7 +1,7 @@
 package view;
 /**
  *
- * @author Tarcio
+ * @author Ernane
  */
 
 import calculos.CalculadorPON;
@@ -132,8 +132,8 @@ public class MainView extends JFrame {
                 Double atenuacaoFibra = getValueFromTextField(atenuacaoField);
                 Double perdasConectores = getValueFromTextField(perdasConectoresField);
                 Double perdasPowerSplitters = getValueFromTextField(perdasSplittersField);
-                int quantidadeConectores = getValueFromTextField(quantidadeConectoresField).intValue();
-                int quantidadePowerSplitters = getValueFromTextField(quantidadeSplittersField).intValue();
+                Double quantidadeConectores = getValueFromTextField(quantidadeConectoresField);
+                Double quantidadePowerSplitters = getValueFromTextField(quantidadeSplittersField);
 
                 CalculadorPON calculadorPON = new CalculadorPON(distancia, potenciaTransmissao, sensibilidadeRecepcao,
                         atenuacaoFibra, perdasConectores, perdasPowerSplitters, quantidadeConectores, quantidadePowerSplitters);
@@ -144,8 +144,8 @@ public class MainView extends JFrame {
                 Double atenuacaoFibra_ = calculadorPON.calcularAtenuacaoFibra();
                 Double perdasConectores_ = calculadorPON.calcularPerdasConectores();
                 Double perdasPowerSplitters_ = calculadorPON.calcularPerdasPowerSplitters();
-                int quantidadeConectores_ = calculadorPON.calcularQuantidadeConectores();
-                int quantidadePowerSplitters_ = calculadorPON.calcularQuantidadePowerSplitters();
+                Double quantidadeConectores_ = calculadorPON.calcularQuantidadeConectores();
+                Double quantidadePowerSplitters_ = calculadorPON.calcularQuantidadePowerSplitters();
 
                 resultadoArea.setText(
                         "Distância máxima: " + distanciaMaxima + "\n" +
